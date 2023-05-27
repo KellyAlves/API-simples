@@ -70,16 +70,15 @@ export class BookService {
         }
     }
 
-    public async updateBook(book: BookModel): Promise<BookModel | null> {
+    public async updateBook(id: string, book: BookModel): Promise<BookModel | null> {
         try {
-            const snapshot = await get(child(bookRef, `books/${book.id}`));
+            const snapshot = await get(child(bookRef, `books/${id}`));
 
             if (!snapshot.exists()) {
                 return null;
             }
 
-            const{ id, ...bookWithoutId } = book;
-            await update(ref(db, `books/${book.id}`), bookWithoutId);
+            await update(ref(db, `books/${id}`), book);
             return book;
         } catch (error) {
             console.error(error);

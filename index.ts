@@ -10,3 +10,12 @@ app.use(cors());
 
 const bookController = new BookController();
 
+app.get('/books', bookController.getBooks.bind(bookController));
+app.get('/books/:id', bookController.getBookById.bind(bookController));
+app.post('/books', bookController.createBook.bind(bookController));
+app.put('/books/:id', bookController.updateBook.bind(bookController));
+app.delete('/books/:id', bookController.deleteBook.bind(bookController));
+
+app.listen(port, () => {
+    console.log(`Server listening on http://localhost:${port}`);
+})
